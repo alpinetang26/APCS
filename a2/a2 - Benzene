@@ -1,0 +1,40 @@
+import gpdraw.*;
+
+public class House
+{
+    private DrawingTool myPencil;
+    private SketchPad myPaper;
+    //Alpine Tang
+    
+    public House()
+    {
+        myPaper = new SketchPad(500, 500);
+        myPencil = new DrawingTool(myPaper);
+    }
+    
+    public void draw()
+    {
+        myPencil.drawCircle(80);
+        myPencil.up();
+        myPencil.move(0,-130);
+        myPencil.down();
+        myPencil.turnLeft(180);
+        myPencil.turnRight(60);
+        myPencil.forward(130);
+        myPencil.turnLeft(60);
+        myPencil.forward(130);
+        myPencil.turnLeft(60);
+        myPencil.forward(130);
+        myPencil.turnLeft(60);
+        myPencil.forward(130);
+        myPencil.turnLeft(60);
+        myPencil.forward(130);
+        myPencil.turnLeft(60);
+        myPencil.forward(130);
+    }
+}
+    
+    
+    
+    
+  
