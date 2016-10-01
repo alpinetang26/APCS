@@ -1,0 +1,11 @@
+public class CircleDriver
+{
+    
+    public static void main (String args[])
+    {
+        Circle circleA = new Circle(0, 0, 30);
+        System.out.println("The circumference of the circle is " + 2*3.14*circleA.myRadius);
+        System.out.println("The area of the circle is " + 3.14*circleA.myRadius*circleA.myRadius);
+        circleA.draw();
+    }
+}
