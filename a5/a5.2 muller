@@ -1,0 +1,43 @@
+import gpdraw.*;
+public class MullerLyer
+{
+    private SketchPad myPaper;
+    private DrawingTool myPencil;
+    
+    public MullerLyer()
+    {
+        myPaper = new SketchPad(500,500); //initializes Sketchpad
+        myPencil = new DrawingTool(myPaper); //initializes DrawingTool        
+    }
+    
+    public void drawOne(double x, double y, double distance, double angle)
+    {
+        myPencil.up();
+        myPencil.move(x, y);
+        myPencil.setDirection(angle);
+        myPencil.down();
+        myPencil.forward(distance);
+        
+    }
+    public void Muller(double x, double yf, double yt, double distance)
+    {
+       double longlength = distance;
+       double shortlength = distance / 5;
+       drawOne(x,yf,longlength,0); //beginning of array witharrows opening in
+       drawOne(x,yf,shortlength,10);
+       drawOne(x,yf,shortlength,350);
+       drawOne(x+distance,yf,shortlength,170);
+       drawOne(x+distance,yf,shortlength,-170);
+       drawOne(x,yt,longlength,0); //beginning of array with arrows opening out
+       drawOne(x,yt,shortlength,170);
+       drawOne(x,yt,shortlength,-170);
+       drawOne(x,yt,longlength,0);
+       drawOne(x+distance,yt,shortlength,10);
+       drawOne(x+distance,yt,shortlength,-10);
+    }
+    public void MullerVertical(double x, double y, double distance)
+    {
+        drawOne(x,y,distance,90);
+        drawOne(x+distance,y,distance,90);
+    }
+}
