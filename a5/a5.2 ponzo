@@ -1,0 +1,44 @@
+import gpdraw.*;
+
+public class Ponzo
+{
+    private DrawingTool myPencil;
+    private SketchPad myPaper;
+    public Ponzo()
+    {
+        myPaper = new SketchPad(500,500); //initializes sketchpad
+        myPencil = new DrawingTool(myPaper); //initializes drawingtool
+    }
+
+    public void drawPonzo(double x, double y, double angle, double distance)
+    {
+       myPencil.up(); //brings pencil up
+       myPencil.move(x,y); //sets point for pencil
+       myPencil.setDirection(angle); //sets direction for pencil
+       myPencil.down(); //puts pencil down
+       myPencil.forward(distance); //distance pencil moves forward
+    }
+    
+    public void PonzoDrawing(double x, double y)
+    {
+        double height = y + 5;
+        double minusheight = y - 5;
+        drawPonzo(x,y,0,1000);
+        drawPonzo(x,height,2.5,900);
+        drawPonzo(x,height,5,800);
+        drawPonzo(x,height,7.5,800);
+        drawPonzo(x,height,10,800);
+        drawPonzo(x,height,12.5,800);
+        drawPonzo(x,minusheight,-2.5,900);
+        drawPonzo(x,minusheight,-5,900);
+        drawPonzo(x,minusheight,-7.5,900);
+        drawPonzo(x,minusheight,-10,900);
+        drawPonzo(x,minusheight,-12.5,900);
+    }
+    
+    public void PonzoVertical(double x, double y, double distance)
+    {
+        drawPonzo(x,y,90,distance);
+        drawPonzo(x+150,y,90,distance);
+    }
+    }
