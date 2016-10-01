@@ -1,0 +1,19 @@
+public class PiggyBankDriver{
+    public PiggyBankDriver (int pennies, int nickels, int dimes, int quarters){
+        PiggyBank myPiggyBank = new PiggyBank();
+        myPiggyBank.addPennies(pennies);
+        myPiggyBank.addNickels(nickels);
+        myPiggyBank.addDimes(dimes);
+        myPiggyBank.addQuarters(quarters);
+        System.out.println("# of pennies = " + myPiggyBank.getpennies());
+        System.out.println("# of nickels = " + myPiggyBank.getnickels());
+        System.out.println("# of dimes = " + myPiggyBank.getdimes());
+        System.out.println("# of quarters = " + myPiggyBank.getquarters());
+        myPiggyBank.totalValue();
+        
+    } 
+
+
+    }
+
+        
