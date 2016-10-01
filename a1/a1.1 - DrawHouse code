@@ -1,0 +1,144 @@
+
+import gpdraw.*;
+
+public class House
+{
+    private DrawingTool myPencil;
+    private SketchPad myPaper;
+        
+    public House()
+    {
+        myPaper = new SketchPad(500, 500);
+        myPencil = new DrawingTool(myPaper);
+    }
+    
+    public void draw()
+    {
+        myPencil.drawRect(275,200);
+        myPencil.up();
+        myPencil.move(137.5,100);
+        myPencil.down();
+        myPencil.turnLeft(105);
+        myPencil.forward(176);
+        myPencil.turnLeft(77.5);
+        myPencil.forward(176);
+        myPencil.setColor(java.awt.Color.cyan);
+        myPencil.up();
+        myPencil.move(0,0);
+        myPencil.down();
+        myPencil.fillRect(273,200);
+        myPencil.setColor(java.awt.Color.gray);
+        myPencil.up();
+        myPencil.move(0,-66);
+        myPencil.down();
+        myPencil.fillRect(40,70);
+        myPencil.setColor(java.awt.Color.black);
+        myPencil.up();
+        myPencil.move(-12,-66);
+        myPencil.down();
+        myPencil.drawCircle(2.5);
+        myPencil.fillCircle(2.5);
+        myPencil.up();
+        myPencil.move(0,-65);
+        myPencil.down();
+        myPencil.drawRect(40,70);
+        myPencil.up();
+        myPencil.move(83,30);
+        myPencil.down();
+        myPencil.drawRect(50,50);
+        myPencil.up();
+        myPencil.move(-83,30);
+        myPencil.down();
+        myPencil.drawRect(50,50);
+        myPencil.up();
+        myPencil.move(-110,202);
+        myPencil.down();
+        myPencil.turnRight(189);
+        myPencil.forward(80);
+        myPencil.up();
+        myPencil.move(-75,150);
+        myPencil.down();
+        myPencil.turnLeft(51);
+        myPencil.forward(53);
+        myPencil.turnLeft(90);
+        myPencil.forward(35);
+        myPencil.setColor(java.awt.Color.white);
+        myPencil.up();
+        myPencil.move(83,29);
+        myPencil.down();
+        myPencil.fillRect(51,51);
+        myPencil.up();
+        myPencil.move(-83,29);
+        myPencil.down();
+        myPencil.fillRect(51,51);
+        myPencil.setColor(java.awt.Color.black);
+        myPencil.up();
+        myPencil.move(-180,-150);
+        myPencil.down();
+        myPencil.drawRect(15,50);
+        myPencil.setColor(java.awt.Color.darkGray);
+        myPencil.fillRect(15,50);
+        myPencil.setColor(java.awt.Color.green);
+        myPencil.up();
+        myPencil.move(-180,-50);
+        myPencil.down();
+        myPencil.drawOval(60,155);
+        myPencil.fillOval(60,155);
+        myPencil.up();
+        myPencil.move(180,-50);
+        myPencil.down();
+        myPencil.drawOval(60,155);
+        myPencil.fillOval(60,155);
+        myPencil.setColor(java.awt.Color.darkGray);
+        myPencil.up();
+        myPencil.move(180,-150);
+        myPencil.down();
+        myPencil.drawRect(15,50);
+        myPencil.fillRect(15,50);
+        myPencil.setColor(java.awt.Color.yellow);
+        myPencil.up();
+        myPencil.move(230,200);
+        myPencil.down();
+        myPencil.drawCircle(60);
+        myPencil.fillCircle(60);
+        myPencil.up();
+        myPencil.setColor(java.awt.Color.black);
+        myPencil.move(-83,53);
+        myPencil.down();
+        myPencil.turnLeft(65); 
+        myPencil.forward(50);
+        myPencil.up();
+        myPencil.move(82,3);
+        myPencil.down();
+        myPencil.turnLeft(90);
+        
+        myPencil.forward(50);
+        myPencil.up();
+        myPencil.move(58,28);
+        myPencil.down();
+        myPencil.turnLeft(134);
+        myPencil.forward(50);
+        myPencil.up();
+        myPencil.move(-58,28);
+        myPencil.down();
+        myPencil.forward(50);
+        myPencil.up();
+        myPencil.move(0,-170);
+        myPencil.setColor(java.awt.Color.green);
+        myPencil.down();
+        myPencil.drawOval(250,80);
+        myPencil.fillOval(250,80);
+        myPencil.up();
+        myPencil.move(-180,180);
+        myPencil.setColor(java.awt.Color.lightGray);
+        myPencil.down();
+        myPencil.drawOval(120,40);
+        myPencil.fillOval(120,40);
+        myPencil.setColor(java.awt.Color.black);
+        myPencil.up();
+        myPencil.move(40,40);
+        myPencil.down();
+       
+      
+    }  
+}
