@@ -1,0 +1,70 @@
+public class PiggyBank
+{
+    private double pennies, nickels, dimes, quarters;
+    private int p, n, d, q;
+    private double totalValue;
+    private static PiggyBank myPiggyBank;
+
+    public PiggyBank()
+    {
+         pennies = .01;
+         nickels = .05;
+         dimes = .10;
+         quarters = .25;
+         p = 0;
+         n = 0;
+         d = 0;
+         q = 0;
+    } 
+
+    public int getpennies()
+    {/* return how many pennies are in the piggy bank */
+      return p;
+    }
+    
+    public int getnickels()
+    {// return how many nickles are in the piggy bank
+        return n;
+    }
+    
+    public int getdimes()
+    {// return how many dimes are in the piggy bank
+        return d;
+    }
+    
+    public int getquarters()
+    { //return how many quarters are in the piggy bank
+        return q;
+    }
+
+   public void addPennies(int ppadd)
+    { //adds # of pennies in bank with additional pennies inputted
+        p = ppadd + p;
+    }
+    
+    public void addNickels(int nnadd)
+    {//adds # of nickels in bank with additional nickels inputted
+        n = nnadd + n;
+    }
+    
+    public void addDimes(int ddadd)
+    {//adds # of dimes in bank with additional dimes inputted
+        d = ddadd + d;
+    }
+    
+    public void addQuarters(int qqadd)
+    {//adds # of quarters in bank with additional quarters inputted
+        q = qqadd + q;
+    }
+    
+    public void totalValue()
+    {// calculates total value of all coins
+        totalValue = p*pennies + n*nickels + d*dimes + q*quarters;
+        System.out.println("total value = $" + totalValue);
+    }
+    
+} 
+
+
+
+
