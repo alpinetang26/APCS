@@ -1,0 +1,21 @@
+import java.util.Scanner;
+public class CheckMail
+{
+    private double length, width, height, weight;
+    Scanner in = new Scanner(System.in);
+   
+    public CheckMail(double l, double w, double h, double wt)
+    {
+        length = l;
+        width = w;
+        height = h;
+        weight = wt;
+    }
+    
+    public double getGirth(double g)
+    {
+        g = 2*(height + width);
+        return g;
+    }
+
+}
