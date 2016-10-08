@@ -2,20 +2,52 @@ import java.util.Scanner;
 public class CheckMail
 {
     private double length, width, height, weight;
-    Scanner in = new Scanner(System.in);
-   
-    public CheckMail(double l, double w, double h, double wt)
+    public static void main (String[] args)
     {
-        length = l;
-        width = w;
-        height = h;
-        weight = wt;
+        double length, width, height, weight, a, b, c, g;
+        Scanner in = new Scanner(System.in);
+        System.out.println("Enter side 1:");
+        a = in.nextDouble();
+        System.out.println("Enter side 2:");
+        b = in.nextDouble();
+        System.out.println("Enter side 3:");
+        c = in.nextDouble();
+        System.out.println("Enter weight:");
+        weight = in.nextDouble();
+        if ((b> c) && (b > a))
+        {
+            length = b;
+            width = a;
+            height = c;
+        }
+       else if ((c > a) && (c > b))
+       {    length = c;
+            width = a;
+            height = b;
+        }
+        else
+       {    length = a;
+            width = b;
+            height= c;
+        }
+       g = 2*(width + height);
+       if ((g + length > 100) && (weight > 70))
+       {
+           System.out.println("Package is too large and too heavy.");
+       }
+       else if ((g + length > 100) && (weight <70))
+       {
+           System.out.println("Package is too large.");
+       }
+       else if ((g + length < 100) && (weight > 70))
+       {
+           System.out.println("Package is too heavy.");
+       }
+       else
+       {
+           System.out.println("Package is acceptable.");
+        }
+       
     }
     
-    public double getGirth(double g)
-    {
-        g = 2*(height + width);
-        return g;
-    }
-
 }
