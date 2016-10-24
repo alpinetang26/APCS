@@ -1,0 +1,15 @@
+import java.util.Scanner;
+public class StringUtil
+{
+    static Scanner in = new Scanner(System.in);
+    
+    public static String receiveString()
+    {
+        String x = in.next();
+        int y = x.length();
+        if (y == 0)
+          return " ";
+          else
+            return x.substring(y-1,y);
+    }
+}
