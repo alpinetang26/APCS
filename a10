@@ -1,15 +1,109 @@
-import java.util.Scanner;
 public class StringUtil
 {
-    static Scanner in = new Scanner(System.in);
-    
-    public static String receiveString()
+
+       
+    public static String ReverseString(String str)
     {
-        String x = in.next();
-        int y = x.length();
-        if (y == 0)
-          return " ";
-          else
-            return x.substring(y-1,y);
+        if (str.length() == 1)
+            return str;
+        else
+            return str.charAt(str.length()-1) + ReverseString(str.substring(0, str.length()-1));
     }
-}
+    
+        private static String RemoveCommas(String str)
+    {
+        if (str.indexOf(',') == -1)
+            return str;
+        else
+            return str.substring(0,str.indexOf(',')) + RemoveCommas(str.substring(str.indexOf(',')+1));
+        }
+        
+    private static String RemovePeriods(String str)
+    {
+        str = RemoveCommas(str);
+        if (str.indexOf('.') == -1)
+            return str;
+        else 
+            return str.substring(0,str.indexOf('.')) + RemovePeriods(str.substring(str.indexOf('.') + 1));
+    }
+    
+    private static String RemoveExclamations(String str)
+    {
+        str  = RemovePeriods(str);
+        if (str.indexOf('!') == -1)
+            return str;
+        else 
+            return str.substring(0,str.indexOf('!')) + RemoveExclamations(str.substring(str.indexOf('!') + 1));
+    }
+    
+    private static String RemoveSpaces(String str)
+    {
+        str = RemoveExclamations(str);
+        if (str.indexOf(' ') == -1)
+            return str;
+        else 
+            return str.substring(0,str.indexOf(' ')) + RemoveSpaces(str.substring(str.indexOf(' ') + 1));
+    }
+    
+    
+    public static String Palindrome(String str)
+    {
+        str = RemoveSpaces(str.toLowerCase());
+        String y = ReverseString(str);
+        if (y.length() == 1)
+            return "true";
+        if (y.equals(str))
+            return "true";
+        else
+            return "false";
+    }
+    
+    public static String PigLatin(String str)
+    {
+        int a = str.indexOf('A');
+        int b = str.indexOf('E');
+        int c = str.indexOf('I');
+        int d = str.indexOf('O');
+        int e = str.indexOf('U');
+        int f = str.indexOf('a');
+        int g = str.indexOf('e');
+        int h = str.indexOf('i');
+        int i = str.indexOf('o');
+        int j = str.indexOf('u');
+       
+        if (a == -1 && b == -1 && c == -1 && d == -1 && e == -1 && f == -1 && g == -1 && h == -1 && i == -1 && j == -1)
+            return str + "ay";       
+        else if (a == 0 || b == 0 || c == 0 || d == 0 || e == 0 || f == 0 || g == 0 || h == 0 || i == 0 || j == 0)
+            return str + "yay";
+        else
+            return "";
+        }
+        
+     public static String Shorthand(String str)
+     {
+         int x = str.charAt(0);
+    
+       
+         if (str.length() == 0 || str.length() == 1)
+            return str;
+         if (str.charAt(0) == 'a' && str.charAt(1) == 'n' && str.charAt(2) == 'd')
+            return "&" + Shorthand(str.substring(3));
+         if (str.charAt(0) == 't' && str.charAt(1) == 'o')
+            return "2" + Shorthand(str.substring(2));
+         if (str.charAt(0) == 'y' && str.charAt(1) == 'o' && str.charAt(2) == 'u')
+            return "U" + Shorthand(str.substring(3)); 
+         if (str.charAt(0) == 'f' && str.charAt(1) == 'o' && str.charAt(2) == 'r')
+            return "4" + Shorthand(str.substring(3));
+         if ((x == 'a') || (x =='e') || (x =='i') || (x =='o') || (x =='u') || (x =='A') || (x =='E') || (x =='I') || (x =='O') || (x =='U'))
+            return Shorthand(str.substring(1));
+         else
+            return str.charAt(0) + Shorthand(str.substring(1));
+        }
+    }
+         
+         
+         
+         
+         
+         
+         
