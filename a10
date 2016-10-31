@@ -70,13 +70,18 @@ public class StringUtil
         int h = str.indexOf('i');
         int i = str.indexOf('o');
         int j = str.indexOf('u');
+        
        
         if (a == -1 && b == -1 && c == -1 && d == -1 && e == -1 && f == -1 && g == -1 && h == -1 && i == -1 && j == -1)
             return str + "ay";       
         else if (a == 0 || b == 0 || c == 0 || d == 0 || e == 0 || f == 0 || g == 0 || h == 0 || i == 0 || j == 0)
             return str + "yay";
-        else
-            return "";
+        else if ((a != -1 || b != -1 || c != -1 || d != -1 || e != -1 || f != -1 || g != -1 || h != -1 || i != -1 || j != -1) 
+                 && (str.charAt(0) != 'a' && str.charAt(0) != 'e' && str.charAt(0) != 'i' && str.charAt(0) != 'o' && str.charAt(0) != 'u'
+                  && str.charAt(0) != 'A' && str.charAt(0) != 'E' && str.charAt(0) != 'I' && str.charAt(0) != 'O' && str.charAt(0) != 'U'))
+                 
+                    
+                
         }
         
      public static String Shorthand(String str)
