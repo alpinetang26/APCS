@@ -5,7 +5,7 @@ public class StringUtil
     static int w;
     static int r;
     static int t;
-    public static String ReverseString(String str)
+    public static String ReverseString(String str) //method for reversing a string
     {
         if (str.length() == 1)
             return str;
@@ -13,7 +13,7 @@ public class StringUtil
             return str.charAt(str.length()-1) + ReverseString(str.substring(0, str.length()-1));
     }
     
-        private static String RemoveCommas(String str)
+        private static String RemoveCommas(String str) //method for removing commas
     {
         if (str.indexOf(',') == -1)
             return str;
@@ -21,7 +21,7 @@ public class StringUtil
             return str.substring(0,str.indexOf(',')) + RemoveCommas(str.substring(str.indexOf(',')+1));
         }
         
-    private static String RemovePeriods(String str)
+    private static String RemovePeriods(String str)//method for removing periods
     {
         str = RemoveCommas(str);
         if (str.indexOf('.') == -1)
@@ -30,7 +30,7 @@ public class StringUtil
             return str.substring(0,str.indexOf('.')) + RemovePeriods(str.substring(str.indexOf('.') + 1));
     }
     
-    private static String RemoveExclamations(String str)
+    private static String RemoveExclamations(String str)//method for removing exclamation
     {
         str  = RemovePeriods(str);
         if (str.indexOf('!') == -1)
@@ -39,7 +39,7 @@ public class StringUtil
             return str.substring(0,str.indexOf('!')) + RemoveExclamations(str.substring(str.indexOf('!') + 1));
     }
     
-    private static String RemoveSpaces(String str)
+    private static String RemoveSpaces(String str) //method for removing spaces
     {
         str = RemoveExclamations(str);
         if (str.indexOf(' ') == -1)
@@ -49,7 +49,7 @@ public class StringUtil
     }
     
     
-    public static String Palindrome(String str)
+    public static String Palindrome(String str) //method to check if string is a palindrome
     {
         str = RemoveSpaces(str.toLowerCase());
         String y = ReverseString(str);
@@ -61,20 +61,23 @@ public class StringUtil
             return "false";
     }
     
-    private static String findStart(String str)
+    private static String findStart(String str) //method to find Start
     {   
-        if(str.charAt(r) == 'a' || str.charAt(r) == 'e' || str.charAt(r) == 'i' || str.charAt(r) == 'o' || str.charAt(r) == 'u'
+        r = str.length()- 1;
+        if (str.length() ==1)
+            return str;
+        else if(str.charAt(r) == 'a' || str.charAt(r) == 'e' || str.charAt(r) == 'i' || str.charAt(r) == 'o' || str.charAt(r) == 'u'
          || str.charAt(r) == 'A' || str.charAt(r) == 'E' || str.charAt(r) == 'I' || str.charAt(r) == 'O' || str.charAt(r) == 'U')
          
-            return str.substring(0,r);
-
+            return  str.substring(0,r);
+        
         else
-            return findStart(str.substring(1));
+            return findStart(str.substring(0,str.length() - 1));
             
         
     }
  
-    private static String findEnd(String str)
+    private static String findEnd(String str) // method to find End
     {
         int t = str.length();
         if( str.charAt(w) == 'a' || str.charAt(w) == 'e' || str.charAt(w) == 'i' || str.charAt(w) == 'o' || str.charAt(w) == 'u'
@@ -86,7 +89,7 @@ public class StringUtil
             return findEnd(str.substring(1));
     }
         
-    private static String PigLatin(String str)
+    private static String PigLatin(String str) //method to find Pig Latin
     {
         int a = str.indexOf('A');
         int b = str.indexOf('E');
@@ -107,13 +110,14 @@ public class StringUtil
         if ((a != -1 || b != -1 || c != -1 || d != -1 || e != -1 || f != -1 || g != -1 || h != -1 || i != -1 || j != -1) 
                  && (str.charAt(0) != 'a' && str.charAt(0) != 'e' && str.charAt(0) != 'i' && str.charAt(0) != 'o' && str.charAt(0) != 'u'
                   && str.charAt(0) != 'A' && str.charAt(0) != 'E' && str.charAt(0) != 'I' && str.charAt(0) != 'O' && str.charAt(0) != 'U'))
-                 return findStart(str) + findEnd(str) + "ay";
-                    if (str.charAt(0) > 64 && str.charAt(0) < 91)
-                        return findStart(str.toUpperCase()) + findEnd(str.toLowerCase());
+                  if (str.charAt(0) > 64 && str.charAt(0) < 91)
+                        return findEnd(str.toUpperCase()) + findStart(str.toLowerCase()) + "ay";
+                      else return findEnd(str) + findStart(str) + "ay";
+
         return "";
     }
     
-    public static String PigLatinPrint(String str)
+    public static String PigLatinPrint(String str) //method to return Pig Latin
     {
         int l = str.indexOf(" ");
         if (str.length() == 1)
@@ -124,13 +128,12 @@ public class StringUtil
         return PigLatin(str.substring(0,l)) + " " + PigLatin(str.substring(l+1));
     }
     
-    public static String Shorthand(String str)             
+      public static String Shorthand(String str) //method to return Shorthand
      {
-         int x = str.charAt(0);
-    
-       
+
          if (str.length() == 0 || str.length() == 1)
             return str;
+         int x = str.charAt(0);
          if (str.charAt(0) == 'a' && str.charAt(1) == 'n' && str.charAt(2) == 'd')
             return "&" + Shorthand(str.substring(3));
          if (str.charAt(0) == 't' && str.charAt(1) == 'o')
@@ -146,6 +149,7 @@ public class StringUtil
         }
     }
          
+    
          
          
          
