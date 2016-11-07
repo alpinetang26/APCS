@@ -1,0 +1,26 @@
+public class FunLoops
+{
+    int x;
+    static int y;
+    private static int MagicSquareLoop()
+    {
+        if (y == 1)
+            return 1;
+        else
+            return y + MagicSquareLoop.y;
+    }
+    private static boolean MagicSquareCheck()
+    {
+        int x;
+        if (x*x == y)
+            return true;
+        else
+            return false;
+    }
+    public static void MagicSquare()
+    {
+        int x = 0;
+        while (x*x == MagicSquareLoop(x))
+            return x*x;
+    }
+}
