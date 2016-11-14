@@ -1,18 +1,65 @@
 public class FunLoops
 {
-   
-    static boolean Sum(int y)  //y is number being added to
-   {
-       int sum = 0; 
-       int increase = 1;
-       while (sum < y)
-       {
-           sum += increase;
-          
-        }
-       if (sum == y)
-            return true;
-       else   
-        return false;
+    int x; //# of numbers being added starting from 1
+    private int Sum(int x)
+    {
+        int sum = 0;
+        for (int i=x; i!=0; i--)
+            sum += i;
+        return sum;
     }
-}
+    
+    private int CheckSquare(int x)
+    {
+        int y = x;
+               
+            while (Sum(y) <= x*x)
+            {
+                if (Sum(y) == x*x)
+                     return x*x;
+                else 
+                    y++;
+            }
+            
+        return 0;
+    }
+    
+    public void MagicSquare(int x)
+    {
+        int y = 1;
+        while (x>0)
+            if (CheckSquare(y) > 0)
+            {
+                System.out.println(CheckSquare(y) + " ");
+                y++;
+                x--;
+            }
+            else
+                y++;
+    }
+   
+   public void LCM(int a, int b){
+   int x, y;
+  
+   if(a > b) 
+   {
+       x = a;
+       y = b;
+   }
+   else
+   { 
+       x = b; 
+       y = a;
+   }
+   while ( x%y != 0){
+       x += x;
+   }
+   System.out.println(x);
+   
+   }
+   }
+
+    
+
+   
+    
