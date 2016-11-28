@@ -1,0 +1,45 @@
+import gpdraw.*;
+/**
+ * 
+ * 
+ * Andy Tran Period 6 
+ * 
+ */
+public class GraphicPolygon extends RegularPolygon
+{
+  private DrawingTool pen = new DrawingTool(new SketchPad(400, 400));
+  private double xPosition, yPosition; 
+  
+  public GraphicPolygon(int numSides, double sideLength)
+  {
+    super(numSides, sideLength);
+    
+  }
+
+  public GraphicPolygon(int numSides, double sideLength, double x, double y)
+  {
+    super(numSides, sideLength);
+    xPosition = x;
+    yPosition = y;
+  }
+
+  public void moveTo(double x, double y)
+  {
+     xPosition = x;
+     yPosition = y;
+    
+  }
+
+  public void draw()
+  {
+     pen.up();
+     pen.move(xPosition, yPosition);
+     pen.setDirection(0);
+     pen.down();
+     for (int a = 0; a <= getNumside(); a++) //draw loop
+     {
+       pen.turnRight(180 - vertexAngle());
+       pen.forward(getr());
+     }
+  }
+}
