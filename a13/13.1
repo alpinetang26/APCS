@@ -1,0 +1,31 @@
+public class CheckingAccount{
+    private double myBalance;
+    private int myAccountNumber;
+    public CheckingAccount(){
+        myBalance = 0.0;
+        myAccountNumber = 0;
+    }
+    
+    public CheckingAccount(double initialBalance, int acctNum){
+        myBalance = initialBalance;
+        if (initialBalance < 0)
+            throw new IllegalArgumentException();
+        myAccountNumber = acctNum;
+    }
+    
+    public double getBalance(){
+        return myBalance;
+    }
+    
+    public void deposit(double amount){
+        if (amount < 0)
+            throw new IllegalArgumentException();
+        myBalance += amount;
+    }
+    
+    public void withdraw(double amount){
+        if (amount > myBalance)
+            throw new IllegalArgumentException();
+        myBalance -= amount;
+    }
+}
