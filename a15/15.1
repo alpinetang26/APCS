@@ -4,17 +4,27 @@ import gpdraw.*;            // for DrawingTool
 
 public class IrregularPolygon{
    private ArrayList <Point2D.Double> myPolygon;
-   private DrawingTool;
-   private SketchPad;
+   private DrawingTool pen;
+   private SketchPad paper;
+   private double x;
+   private double y;
    // constructors
-   public IrregularPolygon() { }
+   public IrregularPolygon()
+   {
+       paper = new SketchPad(500,500);
+       pen = new DrawingTool(paper);
+       Point2D.Double point = new Point2D.Double(x,y);
+   }
+  
+   public void add(Point2D.Double point) 
+   {
+       
+   }
 
-   // public methods
-   public void add(Point2D.Double aPoint) { }
+   public void draw() 
+   { 
+       
+    }
 
-   public void draw() { }
 
-   public double perimeter() { }
-
-   public double area() { }
 }
