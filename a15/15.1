@@ -6,25 +6,36 @@ public class IrregularPolygon{
    private ArrayList <Point2D.Double> myPolygon;
    private DrawingTool pen;
    private SketchPad paper;
-   private double x;
-   private double y;
+   private Point2D.Double point;
    // constructors
    public IrregularPolygon()
    {
        paper = new SketchPad(500,500);
        pen = new DrawingTool(paper);
-       Point2D.Double point = new Point2D.Double(x,y);
+       myPolygon = new ArrayList <Point2D.Double>();
+
+   }
+   
+   public void addreal(double x, double y)
+   {
+       point = new Point2D.Double(x,y);
+   }
+   
+   public void add() 
+   {
+       Point2D.Double pointy = new Point2D.Double(point.getX(), point.getY());
+       myPolygon.add(pointy);
+
    }
   
-   public void add(Point2D.Double point) 
-   {
-       
-   }
-
    public void draw() 
    { 
-       
-    }
+       for (int i = 0; i< myPolygon.size();i++)
+       {
+           Point2D.Double point1 = myPolygon.get(x);
+           Point2D.Double point2 = myPolygon.get(y);
+           pen.move(point1,point2);
+   }
 
 
 }
