@@ -1,0 +1,58 @@
+ public void mirrorTemple()
+  {
+    int mirrorPoint = 276;
+    Pixel leftPixel = null;
+    Pixel rightPixel = null;
+    int count = 0;
+    Pixel[][] pixels = this.getPixels2D();
+    
+    // loop through the rows
+    for (int row = 27; row < 97; row++)
+    {
+      // loop from 13 to just before the mirror point
+      for (int col = 13; col < mirrorPoint; col++)
+      {
+        
+        leftPixel = pixels[row][col];      
+        rightPixel = pixels[row]                       
+                         [mirrorPoint - col + mirrorPoint];
+        rightPixel.setColor(leftPixel.getColor());
+        count++;
+      }
+    }
+    System.out.print(count);
+  } //count = 18410
+  ---------------------------------------------------------------------------------------------
+  public void mirrowSnowman()
+  {
+    int mirrorPoint = 172;
+    int mirror = 300;
+    Pixel topPixel = null;
+    Pixel bottomPixel = null;
+    int count = 0;
+    Pixel[][] pixels = this.getPixels2D();
+    
+    // loop through the rows
+    for (int row = 155; row < 200; row++)
+    {
+      // loop from 13 to just before the mirror point
+      for (int col = 103; col < mirrorPoint; col++)
+      {
+        
+        topPixel = pixels[row][col];      
+        bottomPixel = pixels[mirrorPoint-row+215][col];
+        bottomPixel.setColor(topPixel.getColor());
+      }
+    }
+    for (int row = 168; row < 196; row++)
+    {
+      // loop from 13 to just before the mirror point
+      for (int col = 237; col < mirror; col++)
+      {
+        
+        topPixel = pixels[row][col];      
+        bottomPixel = pixels[mirror-row+90][col];
+        bottomPixel.setColor(topPixel.getColor());
+      }
+    }
+  }
