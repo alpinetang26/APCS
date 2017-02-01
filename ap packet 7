@@ -23,36 +23,52 @@
     System.out.print(count);
   } //count = 18410
   ---------------------------------------------------------------------------------------------
-  public void mirrowSnowman()
+  public void mirrorSnowman()
   {
-    int mirrorPoint = 172;
-    int mirror = 300;
+    int mirrorPoint = 190;
+    int mirror = 193;
     Pixel topPixel = null;
     Pixel bottomPixel = null;
     int count = 0;
     Pixel[][] pixels = this.getPixels2D();
     
-    // loop through the rows
-    for (int row = 155; row < 200; row++)
+
+    for (int row = 155; row < mirrorPoint; row++)
     {
-      // loop from 13 to just before the mirror point
-      for (int col = 103; col < mirrorPoint; col++)
+      for (int col = 103; col < 169 ; col++)
       {
         
         topPixel = pixels[row][col];      
-        bottomPixel = pixels[mirrorPoint-row+215][col];
+        bottomPixel = pixels[mirrorPoint-row+mirrorPoint][col];
         bottomPixel.setColor(topPixel.getColor());
       }
     }
-    for (int row = 168; row < 196; row++)
+    for (int row = 168; row < mirror; row++)
     {
-      // loop from 13 to just before the mirror point
-      for (int col = 237; col < mirror; col++)
+      for (int col = 237; col < 297 ; col++)
       {
         
         topPixel = pixels[row][col];      
-        bottomPixel = pixels[mirror-row+90][col];
+        bottomPixel = pixels[mirror-row + mirror][col];
         bottomPixel.setColor(topPixel.getColor());
       }
     }
+  }
+--------------------------------------------------------------------------------------------------------
+public void mirrorGull()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    Pixel leftPixel = null;
+    Pixel rightPixel = null;
+    int maxLength = 345;
+    int width = pixels[0].length;
+    for (int row = 226; row < 324; row++)
+    {
+      for (int col = 232; col < maxLength; col++)
+      {
+        rightPixel = pixels[row][col];
+        leftPixel = pixels[row][maxLength - col + maxLength/3];
+        leftPixel.setColor(rightPixel.getColor());
+      }
+    } 
   }
