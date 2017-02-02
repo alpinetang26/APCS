@@ -22,3 +22,17 @@ public void copy2(Picture fromPic, int startRow, int endRow, int startCol, int e
   }
   ---------  ---------  ---------  ---------  ---------  ---------  ---------  ---------  ---------
   
+public void myCollage()
+  {
+      Picture flower1 = new Picture("flower1.jpg");
+      this.copy(flower1,0,0);
+      Picture noBlueFlower = new Picture(flower1);
+      noBlueFlower.zeroBlue();
+      this.copy(noBlueFlower, 100, 0);
+      Picture mirrorFlower = new Picture(flower1);
+      mirrorFlower.mirrorHorizontal();
+      this.copy(mirrorFlower,200,0);
+      Picture onlyBlue = new Picture (flower1);
+      onlyBlue.keepOnlyBlue();
+      this.copy(onlyBlue,300,0);
+    }
