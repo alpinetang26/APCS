@@ -1,0 +1,54 @@
+import java.util.*;
+/**
+ * Each player or team will create their own Player, this is only an example....
+ * 
+ * Your code MUST INCLUDE a move method with the following signature. To insure that, you must implement
+ * the Player interface
+ * 
+ * You can create additional methods but must have the move method
+ * 
+ */
+public class AlpineGaurav implements Player
+{
+    private static String name = "AlpineAndGaurav";
+    
+    public String move(List <String> myMoves, List <String> opponentMoves, int myScore, int opponentScore)
+    {
+        if (opponentMoves.size() >= 1)
+        {
+         if (opponentMoves.get(opponentMoves.size() - 1 ).equals("r"))
+         {
+             if(myMoves.get(myMoves.size() - 1).equals("r"))
+                return "s";
+             if(myMoves.get(myMoves.size() - 1).equals("s"))
+                return "p";
+             if(myMoves.get(myMoves.size() - 1).equals("p"))
+                return "r";
+         }
+         if (opponentMoves.get(opponentMoves.size() - 1).equals("p"))
+         {
+             if(myMoves.get(myMoves.size() - 1).equals("r"))
+                return "p";
+             if(myMoves.get(myMoves.size() - 1).equals("s"))
+                return "r";
+             if(myMoves.get(myMoves.size() - 1).equals("p"))
+                return "s";
+         }
+         if (opponentMoves.get(opponentMoves.size() - 1).equals("s"))
+         {
+            if(myMoves.get(myMoves.size() - 1).equals("r"))
+                return "s";
+            if(myMoves.get(myMoves.size() - 1).equals("s"))
+                return "p";
+            if(myMoves.get(myMoves.size() - 1).equals("p"))
+                return "r";
+         }
+        }
+        return "p";
+    }
+    
+    public String getName()
+    {
+        return name;
+    }
+}
