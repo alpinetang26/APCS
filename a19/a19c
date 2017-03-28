@@ -12,7 +12,7 @@ public class CountWords
     {
         a = new ArrayList<String>();
         try{
-            in = new Scanner(new File("Lincoln - a19.3.txt"));
+            in = new Scanner(new File("war-and-peace.txt"));
             differentWord = new ArrayList<String>();
             while(in.hasNext()){//while there is stuff 
                 String s = in.next().toLowerCase(); //makes everything lowercase
@@ -33,7 +33,7 @@ public class CountWords
     }
     
     public int search(ArrayList<String> a, int first, int last, String s){
-        //binary method
+        //binary
         int middle = (last + first)/2;
         // if the length = 1 and not middle _--> return -1
         if (first-last == 1 && !(a.get(middle).equals(s))){ 
@@ -57,7 +57,7 @@ public class CountWords
     
     private String removePunctuation(String str){ //checks if lowercase letter or not
         String n = "";
-        if(str.charAt(str.length()-1) <=122 && str.charAt(str.length()-1)>=97){ //
+        if(str.charAt(str.length()-1) <= 122 && str.charAt(str.length()-1)>=97){ //
             n = str.substring(0,str.length());
         }
     
@@ -220,4 +220,3 @@ public class CountWords
         }
 
     }
-
