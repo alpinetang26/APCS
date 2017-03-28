@@ -1,90 +1,223 @@
-/**
- * Created by Alpine Tang on 3/22/17. Period 1
- */
 import java.io.File;
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-
-public class CountWords 
-{ 
-    private ArrayList <String> words;
-    private ArrayList <Integer> number;
-    
-    public CountWords() {
-        words = new ArrayList <String> ();
-        number = new ArrayList <Integer> ();
+public class CountWords
+{
+    private static Scanner in;
+    public ArrayList<String> a;
+    private ArrayList<String> differentWord;
+    public CountWords()
+    {
+        a = new ArrayList<String>();
+        try{
+            in = new Scanner(new File("Lincoln - a19.3.txt"));
+            differentWord = new ArrayList<String>();
+            while(in.hasNext()){//while there is stuff 
+                String s = in.next().toLowerCase(); //makes everything lowercase
+                s=removePunctuation(s); //removes punctuations
+                a.add(s);
+                for(int i = 0; i< a.size();i++){
+                    if(a.get(i).equals("")||a.get(i)== null){
+                        a.remove(i);
+                    }
+                }
+        }
+        }catch(FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+        
+        mergeSort(a,0,a.size()-1);
+        filldifferentWord();
     }
     
-    public void start(){
-        Scanner fromFile = null;
-        try {
-            fromFile = new Scanner(new File("lincoln.txt"));
-        }catch(IOException x) {
-            System.out.println(x.getMessage());
-        }       
-        while(fromFile.hasNext()) {
-            addToLists(toBasicText(fromFile.next().toLowerCase()));
+    public int search(ArrayList<String> a, int first, int last, String s){
+        //binary method
+        int middle = (last + first)/2;
+        // if the length = 1 and not middle _--> return -1
+        if (first-last == 1 && !(a.get(middle).equals(s))){ 
+           return -1;
         }
-        sortLists();
-        printResults();
+        else if(a.get(middle).equals(s)){
+            return middle;
+        }else if(a.get(middle).compareTo(s)>0){ //if middle value is after  keyword, look left
+            return search(a, first, middle-1, s);
+            //returns an integer
+        }else {
+            return search(a, middle+1, last, s);
+        }
         
     }
     
-    private void addToLists(String a) {
-        int temp;
-        boolean inList = false;
-        for(int x = 0; x < words.size(); x++) {
-            if(a.equals(words.get(x)) && !(a.equals("-"))) {
-                temp = number.get(x);
-                temp++;
-                number.set(x,temp);
-                inList = true;
-            }
-        }
-        if(!inList && !(a.equals("-"))) {
-            words.add(a);
-            number.add(1);
-        }
-    }
-
-    public String toBasicText(String a) {
-        if(a.length() == 0) {
-            return "";
-        }
-        if(a.charAt(0) < 97 || a.charAt(0) > 122) {
-            if(a.charAt(0) == 45) { //words with hyphen that counts as one word
-                return a.charAt(0) + toBasicText(a.substring(1));
-            }
-            return toBasicText(a.substring(1));
-        }
-        else return a.charAt(0) + toBasicText(a.substring(1));
+    public int getIndex(String s){
+        return search(a, 0, a.size()-1, s);
+        //calls search method
     }
     
-    public void sortLists(){
-        for (int outer = 0; outer < number.size() - 1; outer++){
-            for (int inner = 0; inner < number.size()-outer-1; inner++){
-              if (number.get(inner) < number.get(inner + 1)){
-                int temp = number.get(inner);
-                String tempString = words.get(inner);
-                number.set(inner, number.get(inner + 1));
-                number.set(inner + 1, temp);
-                words.set(inner, words.get(inner + 1));
-                words.set(inner + 1, tempString);
-              }
+    private String removePunctuation(String str){ //checks if lowercase letter or not
+        String n = "";
+        if(str.charAt(str.length()-1) <=122 && str.charAt(str.length()-1)>=97){ //
+            n = str.substring(0,str.length());
+        }
+    
+        return n;
+    }
+    
+    
+    
+    public void printInfo(){
+      System.out.println("Sorted words:");
+      System.out.println(a);
+      
+      System.out.println("\nDifferent words:");
+      System.out.println(differentWord);
+      
+      
+      System.out.println("\nTotal # of words: " + a.size());
+      System.out.println("Different Words: " + differentWord.size());
+      
+      System.out.println("\nTop Thirty words:");
+      getTopThirty();
+    }
+    
+     private void mergeSort(ArrayList <String> a, int first, int last){
+   //size = last-first+1;
+   
+   if (last-first +1 == 1){
+      
+   } else if ((last - first +1) == 2){
+      if(a.get(last).compareTo(a.get(first))<0){ //if second is smaller than first
+          String temp = a.get(first); //save first value
+          a.set(first, a.get(last));
+          a.set(last, temp);
+        }
+   }else{ //dividest he list into two halves and recursively sorts
+      int middle = (first + last)/2 ;  
+      
+      mergeSort(a, first, middle); //cal mergeSort method of left sublist
+      mergeSort(a,middle+1,last); //call mergesort method
+      
+      
+      merge(a, first, middle, last);
+   } 
+   
+   
+  }
+
+
+   private void merge (ArrayList<String> a, int first, int middle, int last){
+    int n1 = first; //used to traverse left half arraylist
+    int n2 = middle+1; //used to traverse the right half arraylist
+    
+   
+    ArrayList<String> b = new ArrayList<String> (); //new temporary arraylist to be filled
+    
+    while (b.size()< (last-first+1)) { //while the new arraylist is smaller than the given size
+       
+        if (n1>middle){ //left list is done, pull from right
+            b.add(a.get(n2));
+            n2++;
+        }
+        else if(n2>last){//right list is done, pull from left
+            b.add(a.get(n1));
+            n1++;
+        }
+        else if(a.get(n2).compareTo(a.get(n1))>0){ //right bigger than left, pull from left
+            b.add(a.get(n1));
+            n1++;
+        }
+        else{ //else, add the one from right
+            b.add(a.get(n2));
+            n2++;
+        }
+        
+    }
+    
+    //now that we have a sorted arraylist b, we want to put it into a
+    int bIndex = 0;
+    for (int i = first; i<=last; i++){
+        a.set(i,b.get(bIndex));
+        bIndex++;
+    }
+    
+  } 
+  
+  
+  
+  private void filldifferentWord(){
+ 
+    
+   for (String s: a){
+       boolean isIn = false;
+       for(String w: differentWord){
+         if (s.equals(w)){
+            isIn = true;
+            //if the string is in unique words, then isIn = true
+           }
+        }
+       
+        if(!isIn){
+         differentWord.add(s);
+        }
+        
+    }
+    
+  
+   }
+
+
+  public void getTopThirty()
+    {
+        
+        ArrayList <Integer> n = new ArrayList <Integer>();
+        for (String w : differentWord)
+        {
+            int g = 0;
+            for (String q : a)
+            {
+                if (w.equalsIgnoreCase(q))
+                {
+                    g++;
+                }
             }
-          }    
-    }
-    public void printResults() {
-        int sum = 0;
-        for(int x = 0; x < number.size(); x++) {
-            sum+=number.get(x);
+            n.add(g);
         }
-        System.out.println("Number of Unique Words: " + words.size());
-        System.out.println("Number of Words: " + sum + "\n");
-        System.out.println("30 Most Used Words: \n");
-        for(int x = 0; x < 30; x++) {
-            System.out.println("\t#" + (x+1) + ": " + words.get(x) + " (" + number.get(x) + ")");
+        
+        
+        boolean flag = true;   // set flag to true to begin first pass
+        int temp;
+        String temp2;//holding variable
+
+        while (flag)
+        {
+            flag= false;    //set flag to false awaiting a possible swap
+            for(int j = 1;  j < n.size();  j++ )
+            {
+                   if (n.get(j -1) < n.get(j))   // change to > for ascending sort
+                   {
+                           temp = n.get(j - 1);                //swap elements
+                           n.set((j - 1), n.get(j));
+                           n.set((j), temp);
+                           temp2 = differentWord.get(j - 1);                //swap elements
+                           differentWord.set((j - 1), differentWord.get(j));
+                           differentWord.set((j), temp2);
+                           flag = true;              //shows a swap occurred  
+                  } 
+            } 
         }
+        
+        System.out.println("Rank     Freq      Word");
+        for (int i = 1; i < 31; i++)
+        {
+        if (i < 10)
+        
+            System.out.println(i + "        " + n.get(i - 1) + "        " + differentWord.get(i-1));
+        
+        else if (i >= 10)
+            System.out.println(i + "        " + n.get(i - 1) + "        " + differentWord.get(i-1)); 
+        }
+        }
+
     }
-}
+
