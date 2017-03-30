@@ -3,220 +3,201 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 public class CountWords
 {
-    private static Scanner in;
-    public ArrayList<String> a;
-    private ArrayList<String> differentWord;
-    public CountWords()
-    {
-        a = new ArrayList<String>();
-        try{
-            in = new Scanner(new File("war-and-peace.txt"));
-            differentWord = new ArrayList<String>();
-            while(in.hasNext()){//while there is stuff 
-                String s = in.next().toLowerCase(); //makes everything lowercase
-                s=removePunctuation(s); //removes punctuations
-                a.add(s);
-                for(int i = 0; i< a.size();i++){
-                    if(a.get(i).equals("")||a.get(i)== null){
-                        a.remove(i);
-                    }
-                }
-        }
-        }catch(FileNotFoundException e){
-            System.out.println(e.getMessage());
-        }
-        
-        mergeSort(a,0,a.size()-1);
-        filldifferentWord();
-    }
+    private Scanner s;
+    private List<Words> word;
+    private List<Words> strings;
+    private static int search = 0;
     
-    public int search(ArrayList<String> a, int first, int last, String s){
-        //binary
-        int middle = (last + first)/2;
-        // if the length = 1 and not middle _--> return -1
-        if (first-last == 1 && !(a.get(middle).equals(s))){ 
-           return -1;
-        }
-        else if(a.get(middle).equals(s)){
-            return middle;
-        }else if(a.get(middle).compareTo(s)>0){ //if middle value is after  keyword, look left
-            return search(a, first, middle-1, s);
-            //returns an integer
-        }else {
-            return search(a, middle+1, last, s);
-        }
-        
-    }
-    
-    public int getIndex(String s){
-        return search(a, 0, a.size()-1, s);
-        //calls search method
-    }
-    
-    private String removePunctuation(String str){ //checks if lowercase letter or not
-        String n = "";
-        if(str.charAt(str.length()-1) <= 122 && str.charAt(str.length()-1)>=97){ //
-            n = str.substring(0,str.length());
-        }
-    
-        return n;
-    }
-    
-    
-    
-    public void printInfo(){
-      System.out.println("Sorted words:");
-      System.out.println(a);
-      
-      System.out.println("\nDifferent words:");
-      System.out.println(differentWord);
-      
-      
-      System.out.println("\nTotal # of words: " + a.size());
-      System.out.println("Different Words: " + differentWord.size());
-      
-      System.out.println("\nTop Thirty words:");
-      getTopThirty();
-    }
-    
-     private void mergeSort(ArrayList <String> a, int first, int last){
-   //size = last-first+1;
-   
-   if (last-first +1 == 1){
-      
-   } else if ((last - first +1) == 2){
-      if(a.get(last).compareTo(a.get(first))<0){ //if second is smaller than first
-          String temp = a.get(first); //save first value
-          a.set(first, a.get(last));
-          a.set(last, temp);
-        }
-   }else{ //dividest he list into two halves and recursively sorts
-      int middle = (first + last)/2 ;  
-      
-      mergeSort(a, first, middle); //cal mergeSort method of left sublist
-      mergeSort(a,middle+1,last); //call mergesort method
-      
-      
-      merge(a, first, middle, last);
-   } 
-   
-   
-  }
-
-
-   private void merge (ArrayList<String> a, int first, int middle, int last){
-    int n1 = first; //used to traverse left half arraylist
-    int n2 = middle+1; //used to traverse the right half arraylist
-    
-   
-    ArrayList<String> b = new ArrayList<String> (); //new temporary arraylist to be filled
-    
-    while (b.size()< (last-first+1)) { //while the new arraylist is smaller than the given size
-       
-        if (n1>middle){ //left list is done, pull from right
-            b.add(a.get(n2));
-            n2++;
-        }
-        else if(n2>last){//right list is done, pull from left
-            b.add(a.get(n1));
-            n1++;
-        }
-        else if(a.get(n2).compareTo(a.get(n1))>0){ //right bigger than left, pull from left
-            b.add(a.get(n1));
-            n1++;
-        }
-        else{ //else, add the one from right
-            b.add(a.get(n2));
-            n2++;
-        }
-        
-    }
-    
-    //now that we have a sorted arraylist b, we want to put it into a
-    int bIndex = 0;
-    for (int i = first; i<=last; i++){
-        a.set(i,b.get(bIndex));
-        bIndex++;
-    }
-    
-  } 
-  
-  
-  
-  private void filldifferentWord(){
- 
-    
-   for (String s: a){
-       boolean isIn = false;
-       for(String w: differentWord){
-         if (s.equals(w)){
-            isIn = true;
-            //if the string is in unique words, then isIn = true
-           }
-        }
-       
-        if(!isIn){
-         differentWord.add(s);
-        }
-        
-    }
-    
-  
-   }
-
-
-  public void getTopThirty()
-    {
-        
-        ArrayList <Integer> n = new ArrayList <Integer>();
-        for (String w : differentWord)
-        {
-            int g = 0;
-            for (String q : a)
-            {
-                if (w.equalsIgnoreCase(q))
-                {
-                    g++;
-                }
+    public CountWords(String path){
+        word = new ArrayList<Words>();
+        strings = new ArrayList<Words>();
+        try {
+            s = new Scanner(new File(path));
+            while(s.hasNext()){
+                String str = s.next();
+                add(str.toLowerCase());
             }
-            n.add(g);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-        
-        
-        boolean flag = true;   // set flag to true to begin first pass
-        int temp;
-        String temp2;//holding variable
-
-        while (flag)
-        {
-            flag= false;    //set flag to false awaiting a possible swap
-            for(int j = 1;  j < n.size();  j++ )
-            {
-                   if (n.get(j -1) < n.get(j))   // change to > for ascending sort
-                   {
-                           temp = n.get(j - 1);                //swap elements
-                           n.set((j - 1), n.get(j));
-                           n.set((j), temp);
-                           temp2 = differentWord.get(j - 1);                //swap elements
-                           differentWord.set((j - 1), differentWord.get(j));
-                           differentWord.set((j), temp2);
-                           flag = true;              //shows a swap occurred  
-                  } 
-            } 
+        for(int i = 0; i < word.size(); i++){
+            if(word.get(i) == null || word.get(i).getName().equals("")){
+                word.remove(i);
+                strings.remove(i);
+                i--;
+            }
         }
-        
-        System.out.println("Rank     Freq      Word");
-        for (int i = 1; i < 31; i++)
-        {
-        if (i < 10)
-        
-            System.out.println(i + "        " + n.get(i - 1) + "        " + differentWord.get(i-1));
-        
-        else if (i >= 10)
-            System.out.println(i + "        " + n.get(i - 1) + "        " + differentWord.get(i-1)); 
-        }
-        }
-
+        recursiveMerge(0, word.size()-1);
+        recursiveStringMerge(0, strings.size() - 1);
+        print();
     }
+    
+    public List<Words> getCountList(){
+    	return word;
+       }
+    
+    public List<Words> getAlphabeticalList(){
+    	return strings;
+       }
+        
+    private void print() {
+        int sum = 0;
+        for(int x = 0; x < word.size(); x++) {
+            sum+=word.get(x).getCount();
+        }
+        
+        System.out.println("30 Most Used Words: \n");
+        System.out.println(" #     n          Word");
+        for(int x = 0; x < 30; x++) {
+            System.out.printf("%2d" , x+1);
+            System.out.printf("%6d",  word.get(x).getCount());
+            System.out.printf("%15s", word.get(x).getName() + "\n");
+        }
+        
+        System.out.println("\nNumber of words used = " + word.size());
+        System.out.println("Total # of words = " + sum + "\n");
+        
+        
+    }
+    
+    public void binarySearch(String value, int min, int max) {
+        if (min > max) {
+        	System.out.println("the word '"+ value + "' does not exist in the list");
+			System.out.println("searched "+ search + " times");
+			search = 0;
+			return;
+        }
+        
+        int mid = (max + min) / 2;
+        
+        if (strings.get(mid).getName().equals(value)) {
+            System.out.println("Yes, the word '" + value + "' exists at AI:" + mid + ", TI: " + strings.get(mid).getIndex());
+			System.out.println("It took "+ search + " searches to find '" + value + "'");
+            search = 0;
+            return;
+        } else if(strings.get(mid).getName().compareTo(value) > 0) {
+        	search++;
+            binarySearch(value, min, mid - 1);
+        } else {
+        	search++;
+            binarySearch(value, mid + 1, max);
+        }
+    }
+
+
+    private void add(String s) {
+        boolean isInList = false;
+        for(int x = 0; x < word.size(); x++){
+            if(!s.equals("-") && s.equals(word.get(x).getName())){
+                    word.get(x).incrementCount();
+                    isInList = true;
+            }
+        }
+        if(!s.equals("-") && !isInList){
+        	Words q = new Words(s);
+            word.add(q);
+            q.setIndex(word.size()-1);
+            strings.add(q);
+        }
+    }
+    
+    public void recursiveStringMerge(int first, int last){
+        if(last-first == 0) {
+            return;
+        }
+        else if(last - first == 1) {
+            if (strings.get(first).getName().compareTo(strings.get(last).getName()) > 0) {
+                Words temp1 = strings.get(first);
+                strings.set(first, strings.get(last));
+                strings.set(last, temp1);
+            }
+        }
+        
+        else {
+            int mid = (last+first)/2;
+            recursiveStringMerge(first,mid);
+            recursiveStringMerge(mid+1,last);
+            mergeStringSort(first,mid,last);
+        }
+
+        
+    }
+    public void mergeStringSort(int first, int mid, int last){
+        
+        int aPtr = first, bPtr = mid+1, total = last-first+1, loop;
+        boolean doneA = false, doneB = false;
+        ArrayList<Words> temp = new ArrayList<Words>();
+        for(loop = 1; loop <= total; loop++){
+            if(doneA) {
+                temp.add(strings.get(bPtr++));
+            }
+            else if(doneB){
+                temp.add(strings.get(aPtr++));
+            }
+            else if(strings.get(aPtr).getName().compareTo(strings.get(bPtr).getName()) < 0){
+                temp.add(strings.get(aPtr++));
+            }
+            else {
+                temp.add(strings.get(bPtr++));
+            }
+            if(aPtr > mid) doneA = true;
+            if(bPtr > last) doneB = true;
+        }
+        for(loop = first; loop <= last; loop++){ 
+            strings.set(loop, temp.get(loop-first));
+        }
+        
+    }
+    
+   public void recursiveMerge(int first, int last){
+        if(last-first == 0) {
+            return;
+        }
+        else if(last - first == 1) {
+            if (word.get(first).getCount() < word.get(last).getCount()) {
+                Words temp1 = word.get(first);
+                word.set(first, word.get(last));
+                word.set(last, temp1);
+            }
+        }
+        
+        else {
+            int mid = (last+first)/2;
+            recursiveMerge(first,mid);
+            recursiveMerge(mid+1,last);
+            mergeSort(first,mid,last);
+        }
+
+        
+    }
+    public void mergeSort(int first, int mid, int last){
+        
+        int aPtr = first, bPtr = mid+1, total = last-first+1, loop;
+        boolean doneA = false, doneB = false;
+        ArrayList<Words> temp = new ArrayList<Words>();
+        for(loop = 1; loop <= total; loop++){
+            if(doneA) {
+                temp.add(word.get(bPtr++));
+            }
+            else if(doneB){
+                temp.add(word.get(aPtr++));
+            }
+            else if(word.get(aPtr).getCount() > word.get(bPtr).getCount()){
+                temp.add(word.get(aPtr++));
+            }
+            else {
+                temp.add(word.get(bPtr++));
+            }
+            if(aPtr > mid) doneA = true;
+            if(bPtr > last) doneB = true;
+        }
+        for(loop = first; loop <= last; loop++){ 
+            word.set(loop, temp.get(loop-first));
+        }
+        
+    }
+
+}
