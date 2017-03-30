@@ -1,0 +1,32 @@
+public class Words {
+
+	private String s;
+	private int count;
+	private int index;
+	
+	public Words(String s){
+		this.s = s;
+		count = 1;
+	}
+	
+	public String getName(){
+		return s;
+	}
+	
+	public int getIndex(){
+		return index;
+	}
+	
+	public void setIndex(int index){
+		this.index = index;
+	}
+	
+	public int getCount(){
+		return count;
+	}
+	
+	public void incrementCount(){
+		count++;
+	}
+	
+}
