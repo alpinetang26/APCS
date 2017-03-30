@@ -1,0 +1,12 @@
+
+
+import java.util.ArrayList;
+
+public class Main{
+	
+  	public static void main(String args[]){
+  		CountWords c = new CountWords("war-and-peace.txt");
+  		c.binarySearch("the", 0, c.getAlphabeticalList().size() - 1);
+  	}
+ 
+}
