@@ -1,0 +1,93 @@
+import java.util.*;
+public class Number
+{
+    private int base;
+    private double value;
+    private ArrayList<Integer> newNum;
+    private int p;
+    private double remValue;
+   
+    public Number()
+    {
+       base = 10;
+       value = 0.0;
+       newNum = new ArrayList<Integer>();
+       newNum.add(0);
+    }
+    //accepts a decimal value, stores it in the list according to its base
+    
+    public Number(int b, double v)
+    {
+       base = b;
+       value = v;
+       newNum = new ArrayList<Integer>();
+       remValue = value;
+       
+       //finding the max power
+       p = 0;
+       while( Math.pow(base,p)<=value) {
+           p++; //p gives the MAX power (1 too many)
+        }
+        
+        int power = p-1;
+        while(remValue!=0 || power>=0){ //need it to go all the way to the zero position if it finishes early
+        // for (int power = maxPower-1; (int)remValue==0; power--){
+            Digit d = new Digit(base, (double)remValue);
+            
+            if(remValue >= Math.pow(base, power)){
+             newNum.add((int)(remValue/(Math.pow(base, power)))); 
+             remValue %= Math.pow(base, power); //set remValue to the remainder
+            }
+            else{
+                newNum.add(0);
+            }
+            power--;
+          // }
+        }
+    }
+    
+   public void increment(){
+        //increments the ^0 number by 1.
+      
+      //if value=base, set that index to 0 and do it again and increment left index(that becomes the new position)
+      int position = p-1; //^0 spot
+      newNum.set(position, newNum.get(position)+1);
+      
+      while (position >0){
+      if (newNum.get(position) == base){
+        newNum.set(position,0); //set that (i) to zero
+        newNum.set(position-1, newNum.get(position-1)+1); //increment left
+        
+         //lower position for next iteration's == check
+      
+        }
+        position--;
+    }
+  }
+    
+    
+
+   public String toString ()
+    {
+        //System.out.println(newNum);
+        
+        
+        // p is the max power, so the first value will have power p-1
+        int largestPower = p-1;
+        
+        //if largest power = 3, you want to put the decimal after arraylist index 3(during index = 4 iteration)
+        
+        String number = "";
+        for(int i = 0; i<newNum.size(); i++){
+            if(i == largestPower+1){
+                number+='.'; //decimal point
+            }
+            
+            number += "" + newNum.get(i);
+           }
+        
+        
+        return number;
+    }
+    
+}
