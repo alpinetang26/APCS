@@ -1,0 +1,16 @@
+public class Driver{
+  public static void main( String[] args){
+      //Alpine Tang Period 1
+      int base = 2;
+      double decNum = 3876492;  
+      System.out.println("The decimal number is " + decNum);
+      System.out.println("The base is: " + base +"\n");
+      System.out.print("\nConverted number: ");
+      Number n = new Number(base, decNum);
+      System.out.println(n);
+      n.increment();
+      System.out.println("\nAfter incrementing: "+ n);
+  }
+
+}
+
